@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int menu(){
+	int escolha;
+    printf("-----------------------------");
+    printf("\n");
+    printf("    MENU DE INGRESSOS    ");
+    printf("\n");
+    printf("1 - Comprar ingresso \n");
+    printf("2 - Ver mapa \n");
+    printf("3 - Sair \n");
+    printf("Digite o que deseja fazer: ");
+    if (scanf("%d", &escolha) == 0) {
+        
+        while (getchar() != '\n'); 
+        return -1; 
+    }
+    return escolha;
+	}
+
+int main()
+{
+   int sala[12][15];
+    int i, j; 	
+    int escolha = 0;
+    int linha;
+    int coluna;
+    
+    
+    for(i = 0; i < 12; i++){
+		for(j = 0; j < 15; j++){
+			sala[i][j] = 0;
+		}
+	}
+	
+	while(escolha != 3){
+		
+		escolha  = menu();
+		
+		if(escolha == 1){
+			printf("Voce escolheu comprar o ingresso!\n");
+			printf("Digite a linha desejada (0 a 11): ");
+            if (scanf("%d", &linha) == 0) {
+                linha = -1; 
+                while (getchar() != '\n'); 
+            }
+            
+            printf("Digite a coluna desejada (0 a 14): ");
+            if (scanf("%d", &coluna) == 0) {
+                coluna = -1; 
+                while (getchar() != '\n'); 
+            }
+            if(linha < 0 || linha > 11 || coluna < 0 || coluna > 14) {
+                printf("Erro: Lugar invalido!\n");
+            }
+            else {
+                // 2. 
+                if(sala[linha][coluna] == 1) {
+                    printf("Erro: Esta cadeira ja esta ocupada!\n");
+                } else {
+                    sala[linha][coluna] = 1; 
+                    printf("Sucesso! Cadeira reservada na linha %d, coluna %d.\n", linha, coluna);
+                }
+            }
+			
+			
+		}
+		
+		
+		else if(escolha == 2){
+			printf("Voce escolheu ver o mapa atual da sala!\n");
+			printf("MAPA ATUAL\n");
+			 printf("-----------------------------\n");
+			for(i = 0; i < 12; i++){
+				for(j = 0; j < 15; j++){
+					printf("%d ", sala[i][j]);
+				}printf("\n");
+			}  printf("\n-----------------------------");
+		}
+		else if(escolha != 3){
+			printf("Escolha invalida! escolha novamente!\n");
+		}
+	}
+	
+
+	
+	
+    return 0;
+}
